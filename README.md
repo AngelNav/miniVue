@@ -1,3 +1,3 @@
-#MINI VUE
+# MINI VUE
 
-Project to undertand VueJs
+Project to undertand VueJs architecture

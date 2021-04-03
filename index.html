@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Mini Vue</title>
+</head>
+
+<body>
+    <div id="app">
+        <span m-text="message"></span>
+        <br>
+        <input type="text" m-model="message">
+    </div>
+
+    <script src="./framework.js"></script>
+    <script>
+        const { createApp } = MiniVue;
+        const app = createApp({
+            data() {
+                return {
+                    message: "Hola mini Vue"
+                };
+            }
+        });
+
+        app.mount()
+    </script>
+</body>
+
+</html>

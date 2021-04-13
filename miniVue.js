@@ -1,27 +1,53 @@
 class MiniVueRective {
+
+    //dependencies (followed by trackers)
+    deps = new Map()
+
     constructor(options) {
         //origin from proxy
         this.origin = options.data()
 
-        //destiny
+        const self = this;
+
+        //DESTINY
 
         //$data is the same as origin but with
         //methods from proxy (trampas)
         this.$data = new Proxy(this.origin, {
             get(target, name) {
-                if (Reflect.has(target, name))
+                if (Reflect.has(target, name)) {
+                    self.track(target, name)
                     return Reflect.get(target, name)
+                }
 
                 console.warn(`Property ${name} doesn't exists`)
                 return ""
             },
             set(target, name, value) {
                 Reflect.set(target, name, value)
+                self.trigger(name)
             }
         })
     }
 
     //effect - track - trigger
+
+    track(target, name) {
+        if (!this.deps.has(name)) {
+            const effect = () => {
+                document.querySelectorAll(`*[m-text=${name}]`).forEach(el => {
+                    this.mText(el, target, name);
+                });
+            };
+            this.deps.set(name, effect);
+        }
+    }
+
+    trigger(name) {
+        const effect = this.deps.get(name)
+        effect()
+    }
+
     mount() {
         document.querySelectorAll("*[m-text]").forEach(el => {
             this.mText(el, this.$data, el.getAttribute("m-text"))

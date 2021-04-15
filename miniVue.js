@@ -38,6 +38,10 @@ class MiniVueRective {
                 document.querySelectorAll(`*[m-text=${name}]`).forEach(el => {
                     this.mText(el, target, name);
                 });
+
+                document.querySelectorAll(`*[m-model=${name}]`).forEach(el => {
+                    this.mModel(el, target, name)
+                })
             };
             this.deps.set(name, effect);
         }

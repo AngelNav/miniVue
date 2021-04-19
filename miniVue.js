@@ -42,6 +42,10 @@ class MiniVueRective {
                 document.querySelectorAll(`*[m-model=${name}]`).forEach(el => {
                     this.mModel(el, target, name)
                 })
+
+                document.querySelectorAll("*[m-bind]").forEach(el => {
+                    const [attr, name] = el.getAttribute("m-bind").match(/(\w+)/g)
+                })
             };
             this.deps.set(name, effect);
         }
@@ -66,6 +70,11 @@ class MiniVueRective {
                 Reflect.set(this.$data, name, el.value)
             })
         })
+
+        document.querySelectorAll("*[m-bind]").forEach(el => {
+            const [attr, name] = el.getAttribute("m-bind").match(/(\w+)/g)
+            this.mBind(el, this.$data, name)
+        })
     }
 
     mText(el, target, name) {
@@ -76,6 +85,10 @@ class MiniVueRective {
 
     mModel(el, target, name) {
         el.value = Reflect.get(target, name)
+    }
+
+    mBind(el, target, name) {
+
     }
 
 }

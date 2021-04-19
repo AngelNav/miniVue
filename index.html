@@ -12,7 +12,11 @@
         <span m-text="message"></span>
         <br>
         <input type="text" m-model="message">
-        <input type="text" m-model="message">
+        <input type="text" m-model="image"><br>
+
+        <img src="https://www.manejandodatos.es/wp-content/uploads/2018/02/vueJS.png">
+
+        <img m-bind="src:image">
     </div>
 
     <script src="./miniVue.js"></script>
@@ -21,7 +25,8 @@
         const app = createApp({
             data() {
                 return {
-                    message: "Hola mini Vue"
+                    message: "Hola mini Vue",
+                    image: 'https://www.manejandodatos.es/wp-content/uploads/2018/02/vueJS.png'
                 };
             }
         });
